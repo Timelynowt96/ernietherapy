@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ErnieTherapy</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      padding: 2rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 3rem;
+      color: #00e6e6;
+    }
+    header p {
+      font-size: 1.2rem;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      gap: 1.5rem;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem 0;
+    }
+    nav a {
+      color: #00e6e6;
+      text-decoration: none;
+    }
+    section {
+      max-width: 800px;
+      margin: 2rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+    }
+    .chat-box {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .chat-box input {
+      padding: 0.8rem;
+      border-radius: 5px;
+      border: none;
+      width: 100%;
+    }
+    .chat-box button {
+      padding: 0.8rem;
+      border: none;
+      border-radius: 5px;
+      background: #00e6e6;
+      color: black;
+      cursor: pointer;
+    }
+    #chat-messages, #bot-messages {
+      max-height: 200px;
+      overflow-y: auto;
+      background: #1c1c1c;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+    #clock-container {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      width: 100%;
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 2rem; }
+      nav ul { flex-direction: column; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ErnieTherapy</h1>
+    <p>Here to listen, here to help.</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#chat">Live Chat</a></li>
+      <li><a href="#erniebot">ErnieBot</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="about">
+    <h2>About ErnieTherapy</h2>
+    <p>ErnieTherapy is your safe space online. Whether you're venting, thinking deeply, or just want someone to listen, I'm here.</p>
+  </section>
+
+  <section id="chat">
+    <h2>Live Chat (With Ernest)</h2>
+    <div class="chat-box">
+      <div id="chat-messages"></div>
+      <input type="text" id="userInput" placeholder="Type your message..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </section>
+
+  <section id="erniebot">
+    <h2>ErnieBot (AI Companion)</h2>
+    <div class="chat-box">
+      <div id="bot-messages"></div>
+      <input type="text" id="botInput" placeholder="Tell me how you're feeling..." />
+      <button onclick="sendToBot()">Talk</button>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <p>If things ever feel too heavy, I’m just one click away.</p>
+    <p><strong>Email:</strong> <a href="mailto:timelynowt96@gmail.com">timelynowt96@gmail.com</a></p>
+    <p><strong>Snapchat:</strong> <a href="https://www.snapchat.com/add/timelynowt" target="_blank">@timelynowt</a></p>
+  </section>
+
+  <section id="about-me">
+    <h2>About Me</h2>
+    <p>I'm Ernest – just a regular guy who's good at comforting people and saying the truth without sugarcoating it. If you're going through it, I'm here. Let's heal together.</p>
+  </section>
+
+  <div id="clock-container">
+    <div id="time"></div>
+    <div id="date"></div>
+  </div>
+
+  <footer>
+    <p>© 2025 ErnieTherapy. You are not alone.</p>
+  </footer>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const message = input.value;
+      if (message.trim() === "") return;
+
+      const chat = document.getElementById("chat-messages");
+      const userMessage = document.createElement("div");
+      userMessage.textContent = "👤 You: " + message;
+      chat.appendChild(userMessage);
+
+      input.value = "";
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    const botReplies = [
+      "I'm here for you. Take a deep breath.",
+      "It’s okay to feel this way. You’re not alone.",
+      "Tell me more, I’m listening.",
+      "Everything you're feeling is valid.",
+      "Let’s take this one step at a time.",
+      "That sounds tough — but you’re strong enough to get through it.",
+      "I'm proud of you for opening up."
+    ];
+
+    function sendToBot() {
+      const input = document.getElementById("botInput");
+      const message = input.value;
+      if (message.trim() === "") return;
+
+      const chat = document.getElementById("bot-messages");
+      const userMessage = document.createElement("div");
+      userMessage.textContent = "👤 You: " + message;
+      chat.appendChild(userMessage);
+
+      const botMessage = document.createElement("div");
+      const reply = botReplies[Math.floor(Math.random() * botReplies.length)];
+      setTimeout(() => {
+        botMessage.textContent = "🤖 ErnieBot: " + reply;
+        chat.appendChild(botMessage);
+        chat.scrollTop = chat.scrollHeight;
+      }, 700);
+
+      input.value = "";
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+      const date = now.toLocaleDateString();
+      document.getElementById('time').textContent = time;
+      document.getElementById('date').textContent = date;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+  <p>2025 ErnieNet Foundation. No Rights reserved cuz am broke :)</p>
+  
+</body>
+</html>
